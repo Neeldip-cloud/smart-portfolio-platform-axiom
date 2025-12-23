@@ -1,6 +1,6 @@
 # Smart Portfolio Intelligence Platform - Axiom
 
-<img src="./stock_arch.jpg">
+<img src="./stock_arch.svg">
 
 
 A cloud-native, event-driven, microservices-based platform designed for real-time data ingestion, analytics, and AI-driven intelligence.  

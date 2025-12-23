@@ -8,7 +8,7 @@ Built for scale, observability, and multi-client access across web and mobile.
 
 ---
 
-## 1. High-Level Architecture Overview
+## High-Level Architecture Overview
 
 The platform is organized into **clearly separated layers**, each with a single responsibility:
 
@@ -24,7 +24,22 @@ The platform is organized into **clearly separated layers**, each with a single 
 
 This separation avoids tight coupling, enables independent scaling, and supports future expansion (new channels, new data providers, new AI models).
 
+All communication between client-server and server-server is done through TLS and mTLS respectively while adhering to AES-256 at rest.
+
 ---
+
+## 1. Edge & Network Protection Layer
+
+### Purpose
+Handle inbound traffic from client applications provide dashboards trough CDN.
+
+### Tech Stack
+- **Azure front door**
+- **Azure DDOS protection**
+
+### Responsibilities
+- Allow/Reject client application requests.
+- Provide static assets for CDN.
 
 ## 2. Experience Layer
 
@@ -43,7 +58,7 @@ User-facing applications that consume platform APIs.
 - Real-time updates
 - Zero business logic beyond presentation
 
-> The experience layer is **stateless** and never talks directly to databases or brokers.
+> The experience layer never talks directly to databases or brokers.
 
 ---
 
@@ -55,6 +70,7 @@ Single controlled entry point into the platform.
 ### Tech Stack
 - **Azure API Management (APIM)**
 - **Azure Entra ID**
+- **API Gateway**
 
 ### Responsibilities
 - Authentication & token validation
@@ -72,11 +88,12 @@ Single controlled entry point into the platform.
 Central place for all domain logic.
 
 ### Tech Stack
-- **Node.js (TypeScript)**
-- **Framework**: Express
+- **Java** & **Node.js (TypeScript)**
+- **Framework**: Spring Boot, Express
 - **Containerized**: Docker
 - **Orchestration**: Kubernetes (AKS)
-- **Inter-service comms**:
+- **Istio** service mesh
+- **Inter-service communication**:
   - gRPC
   - Kafka (async, event-driven)
 
@@ -85,7 +102,13 @@ Central place for all domain logic.
 - Market data processing
 - User preferences
 - Risk calculations
-- Permissions & entitlements
+- Permissions
+- Third party / Bank Communications
+- Benchmark comparison engine
+- Rebalancing engine
+- Asset migration engine
+- Reporting service
+- Alerts
 
 ### Design Principles
 - Stateless services
@@ -108,8 +131,8 @@ Integration with third-party data providers and brokers.
 Convert messy external data into a clean internal format.
 
 ### Tech Stack
-- **Node.js ingestion services**
-- Schema validation (Zod)
+- **Java ingestion services**
+- Schema validation
 - Kafka producers
 
 ### Responsibilities
@@ -117,6 +140,7 @@ Convert messy external data into a clean internal format.
 - Enrich data with metadata
 - Reject invalid data early
 - Publish clean events to Kafka
+- Conflict resolution for multi-source data
 
 > This layer protects the rest of the system from bad data.
 
@@ -153,6 +177,7 @@ Persist and serve data optimized for different workloads.
 - **PostgreSQL** – primary transactional database
 - **TimescaleDB** – time-series data (prices, metrics)
 - **Redis** – caching & ephemeral state
+- **Azure Data Lake Gen2 / Redis** (Feature store)
 
 ### Usage Pattern
 | Storage | Use Case |

@@ -109,6 +109,7 @@ Central place for all domain logic.
 - Asset migration engine
 - Reporting service
 - Alerts
+- AML verification engine
 
 ### Design Principles
 - Stateless services

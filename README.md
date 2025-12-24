@@ -1,6 +1,6 @@
 # Smart Portfolio Intelligence Platform - Axiom
 
-<img src="./stock_arch.svg">
+<img src="./axiom.svg">
 
 
 A cloud-native, event-driven, microservices-based platform designed for real-time data ingestion, analytics, and AI-driven intelligence.  
@@ -70,7 +70,6 @@ Single controlled entry point into the platform.
 ### Tech Stack
 - **Azure API Management (APIM)**
 - **Azure Entra ID**
-- **API Gateway**
 
 ### Responsibilities
 - Authentication & token validation
@@ -188,7 +187,7 @@ Persist and serve data optimized for different workloads.
 
 ---
 
-## 9. AI / Automation Layer
+## 9. ML, AI & Automation Layer
 
 ### Purpose
 Advanced intelligence and automation.

@@ -51,6 +51,7 @@ User-facing applications that consume platform APIs.
 - **Mobile**: React Native
 - **API Communication**: REST + GraphQL
 - **Auth**: OpenID Connect via Azure Entra ID
+- **Azure PubSub**: Realtime events
 
 ### Responsibilities
 - User authentication & authorization
